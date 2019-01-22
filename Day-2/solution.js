@@ -39,7 +39,6 @@ data.forEach(input => {
   }
 
   let coords = `x${x}y${y}`;
-  console.log(coords);
   let keyNumber = keypad[coords];
   code.push(keyNumber);
 });
@@ -47,3 +46,54 @@ data.forEach(input => {
 console.log('Part 1: ', code.join(''));
 
 // Part 2
+const keysP2 = {
+  x0y0: 7,
+  x0y2: 1,
+  x0y1: 3,
+  'x0y-1': 'B',
+  'x0y-2': 'D',
+  'x-2y0': 5,
+  'x-1y1': 2,
+  'x-1y0': 6,
+  'x-1y-1': 'A',
+  x1y1: 4,
+  x1y0: 8,
+  'x1y-1': 'C',
+  x2y0: 9
+};
+
+const codeP2 = [];
+
+data.forEach(input => {
+  let x = -2;
+  let y = 0;
+
+  for (char of input) {
+    let tempX = x;
+    let tempY = y;
+
+    if (char === 'U') {
+      tempY++;
+    }
+    if (char === 'D') {
+      tempY--;
+    }
+    if (char === 'L') {
+      tempX--;
+    }
+    if (char === 'R') {
+      tempX++;
+    }
+
+    let coord = `x${tempX}y${tempY}`;
+    if (keysP2[coord]) {
+      x = tempX;
+      y = tempY;
+    }
+  }
+
+  let coord = `x${x}y${y}`;
+  codeP2.push(keysP2[coord]);
+});
+
+console.log('Part 2: ', codeP2.join(''));
