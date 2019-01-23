@@ -46,4 +46,28 @@ data.forEach(item => {
   }
 });
 
+let result = ids.reduce((a, c) => a + c);
+console.log('Part 1: ', result);
+
 // Part 2
+const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+
+data.forEach(item => {
+  let input = item.match(/.+-/g)[0];
+  let sector = parseInt(item.match(/\d+/g)[0]);
+
+  let output = input.split('').map(letter => {
+    if (letter === '-') {
+      return ' ';
+    }
+
+    let index = alphabet.indexOf(letter);
+    index = (index + sector) % alphabet.length;
+
+    return alphabet[index];
+  });
+
+  if (output.join('').match(/north/g)) {
+    console.log('Part 2: ', output.join(''), ' Sector ID: ', sector);
+  }
+});
