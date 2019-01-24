@@ -31,3 +31,43 @@ data.forEach(str => {
 });
 
 console.log('Part 1: ', result);
+
+// Part 2 - aba and bab
+let resultP2 = 0;
+
+data.forEach(item => {
+  let abas = [];
+  let babs = [];
+  let currentHypernet = false;
+
+  for (let i = 0; i < item.length - 2; i++) {
+    if (item[i] === '[') {
+      currentHypernet = true;
+    }
+    if (item[i] === ']') {
+      currentHypernet = false;
+    }
+
+    if (item[i] === item[i + 2] && item[i] !== item[i + 1] && item[i + 1] !== '[' && item[i + 1] !== ']') {
+      let toPush = `${item[i]}${item[i + 1]}`;
+      if (currentHypernet === false) {
+        abas.push(toPush);
+      } else {
+        babs.push(toPush);
+      }
+    }
+  }
+
+  let valid = false;
+  abas.forEach(aba => {
+    let testStr = `${aba[1]}${aba[0]}`;
+    if (babs.indexOf(testStr) !== -1) {
+      valid = true;
+    }
+  });
+
+  if (valid) {
+    resultP2++;
+  }
+});
+console.log('Part 2: ', resultP2);
